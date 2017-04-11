@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<debug />
+	<http security="none" pattern="/include/index.jsp" />
+	<http security="none" pattern="/resources/**" />
+
+	<!--1.access-denied-page:权限不足时跳转页面 ( ref属性可以设置跳转action ) 2.use-expressions="true":开启表达式(推荐) 
+		PS:开启后非JAVA为文件写法为:hasRole('ROLE_USER') -->
+	<http use-expressions="false" auto-config="true" authentication-manager-ref="authenticationManager">
+		
+		<headers>
+			<frame-options policy="SAMEORIGIN" />
+		</headers>
+		<csrf disabled="true"></csrf>
+		
+		<intercept-url pattern="/login.action" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/**" access="ROLE_USER" />
+
+		<!--同一时间内允许同一账号保持1个在线,error-if-maximum-exceeded="true"表示第第1个以后的登不进去 -->
+		<session-management>
+			<concurrency-control max-sessions="1"
+				error-if-maximum-exceeded="true" expired-url="/login.action?login_error=expired" />
+		</session-management>
+		
+		<!-- <intercept-url pattern="/bank/**" access="ROLE_USER" /> -->
+		<!-- 登录配置 1.login-processing-url:登录form中action的地址(默认为/j_spring_security_check) 
+			2.username-parameter:登录form中用户名的username(默认为/j_username) 
+			3.password-parameter:登录form中用户名的password(默认为/j_password) 
+			4.login-page:登录页(将覆盖默认登录页) 5.default-target-url:默认登录后跳转的页面(如果登录前没有指定跳转页面将生效) 
+			6.authentication-failure-url:错误页 7.always-use-default-target="true":登录后强制跳转到5所指定的页面 -->
+		<form-login login-page="/login.action" username-parameter="username"
+			password-parameter="password" login-processing-url="/bank/j_spring_security_check"
+			authentication-failure-url="/login.action?login_error=true"
+			default-target-url="/home.action" always-use-default-target="true" />
+			
+		<!-- 注销配置 1.logout-success-url:注销后跳转页面 -->
+		<logout logout-success-url="/include/login.jsp" logout-url="logout"
+			invalidate-session="true" delete-cookies="JSESSIONID" />
+	</http>
+
+	<authentication-manager id="authenticationManager">
+        <authentication-provider ref="authenticationProvider" >
+        </authentication-provider>
+    </authentication-manager>
+    
+    <beans:bean id="authenticationProvider" 
+        class="net.luis.security.UserAuthenticationProvider">
+    </beans:bean>
+	
+	<beans:bean id="webexpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+	
+</beans:beans> 

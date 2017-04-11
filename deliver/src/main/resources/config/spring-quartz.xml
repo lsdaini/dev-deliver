@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+	<!-- 要调用的工作类 -->
+	<bean id="quartzTask" class="net.luis.autotask.quartz.QuartzTaskServiceImpl" />
+
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="getQuartzTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject" ref="quartzTask" />
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod" value="getQuartzTaskBean" />
+	</bean>
+
+	<!-- 定义触发时间 -->
+	<bean id="getQuartzTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="getQuartzTask" />
+		<!-- cron表达式 此处定义为一直触发执行任务 -->
+		<!--<property name="cronExpression" value="10,15,20,25,30,35,40,45,50,55 * * * * ?" /> -->
+		<!-- run every morning at 0 AM -->
+		<!-- 10 0/1 * * * ? every minute -->
+		<property name="cronExpression" value="0 0/5 * * * ?" /><!-- 每5分钟一次调度 -->
+	</bean>
+
+	<!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="getQuartzTaskTrigger" />
+			</list>
+		</property>
+	</bean>
+</beans>
