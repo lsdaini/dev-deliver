@@ -29,14 +29,14 @@ public class ContextFinalizer implements ServletContextListener {
 			try {
 				d = (Driver) drivers.nextElement();
 				DriverManager.deregisterDriver(d);
-				System.out.println(String.format("ContextFinalizer:Driver %s deregistered", new Object[] { d }));
+				System.out.println(String.format("---数据库驱动连接已关闭:driver %s deregistered", new Object[] { d }));
 			} catch (SQLException ex) {
-				System.out.println(String.format("ContextFinalizer:Error deregistering driver %s", new Object[] { d }) + ":" + ex);
+				System.out.println(String.format("---数据库驱动连接关闭异常:error deregistering driver %s", new Object[] { d }) + ":" + ex);
 			}
 		try {
 			AbandonedConnectionCleanupThread.shutdown();
 		} catch (InterruptedException e) {
-			System.out.println("ContextFinalizer:SEVERE problem cleaning up: " + e.getMessage());
+			System.out.println("---数据库驱动连接出现严重问题:severe problem cleaning up: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
