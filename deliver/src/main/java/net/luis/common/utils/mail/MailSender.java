@@ -130,7 +130,7 @@ public class MailSender extends Thread {
 				
 				// smtp验证，就是你用来发邮件的邮箱用户名密码
 				if(!transport.isConnected()){
-					if("1".equals(server.getSmtpAuth())){
+					if("true".equals(server.getSmtpAuth())){
 						transport.connect(server.getHost(),Integer.valueOf(server.getPort()), server.getMailFrom(), server.getPassword());
 					}else{
 						transport.connect();
@@ -203,12 +203,12 @@ public class MailSender extends Thread {
 		if (server == null) {
 			server = MailServerInfo.getInstance();
 		}
-		props.put("mail_host", server.getHost());
-		props.put("mail_password", server.getPassword());
-		props.put("mail_protocol", server.getProtocol());
-		props.put("stmp.auth", server.getSmtpAuth());
-		props.put("mail_host", server.getPort());
-		props.put("mail_from", server.getMailFrom());
+		props.put("mail.stmp.host", server.getHost());
+		props.put("mail.protocol", server.getProtocol());
+		props.put("mail.stmp.auth", server.getSmtpAuth());
+		props.put("mail.stmp.port", server.getPort());
+		props.put("mail.stmp.user", server.getMailFrom());
+		props.put("mail.stmp.password", server.getPassword());
 		session = Session.getInstance(props, new Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(MailSender.server.getMailFrom(),

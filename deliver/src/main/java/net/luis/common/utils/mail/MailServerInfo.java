@@ -21,7 +21,7 @@ public class MailServerInfo {
 	private String smtpAuth; //是否验证
 	private String mailFrom; //用户邮箱名
 	private String mailFlag; //是否发送	0：不发送	1：发送
-	private String port; //邮件端口
+	private int port; //邮件端口
 	private static MailServerInfo instance = null;
 
 	public static synchronized MailServerInfo getInstance() {
@@ -88,11 +88,11 @@ public class MailServerInfo {
 		this.mailFlag = mailFlag;
 	}
 
-	public String getPort() {
+	public int getPort() {
 		return port;
 	}
 
-	public void setPort(String port) {
+	public void setPort(int port) {
 		this.port = port;
 	}
 
@@ -101,14 +101,14 @@ public class MailServerInfo {
 		try {
 			properties = new Properties();
 			properties.load(new ClassPathResource("properties" + File.separator + "mailserver.properties").getInputStream());
-			this.setHost(properties.getProperty("mail_host", "smtp.263.net"));
+			this.setHost(properties.getProperty("mail.stmp.host", "smtp.263.net"));
+			this.setPort(Integer.valueOf(properties.getProperty("mail.stmp.port", "25")));
+			this.setProtocol(properties.getProperty("mail.protocol", "smtp"));
+			this.setSmtpAuth(properties.getProperty("mail.stmp.auth", "true"));
 			this.setUserId(properties.getProperty("login_id", "lsdaini"));
-			this.setPassword(properties.getProperty("mail_password", "000000"));
-			this.setProtocol(properties.getProperty("mail_protocol", "smtp"));
-			this.setSmtpAuth(properties.getProperty("mail_auth", "1"));
-			this.setPort(properties.getProperty("mail_port", "25"));
-			this.setMailFrom(properties.getProperty("mail_from", "sai.liu@riking.net"));
-			this.setMailFlag(properties.getProperty("mail_flag", "1"));
+			this.setMailFrom(properties.getProperty("mail.stmp.user", "sai.liu@riking.net"));
+			this.setPassword(properties.getProperty("mail.stmp.password", "000000"));
+			this.setMailFlag(properties.getProperty("mail.flag", "1"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
