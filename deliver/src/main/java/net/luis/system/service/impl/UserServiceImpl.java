@@ -7,7 +7,8 @@ package net.luis.system.service.impl;
 *@Description：
 */
 
-import java.util.List;
+import net.luis.common.dao.HibernateBaseDao;
+import net.luis.common.service.BaseService;
 import net.luis.system.dao.UserDao;
 import net.luis.system.model.User;
 import net.luis.system.service.UserService;
@@ -17,29 +18,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseService<User, Integer> implements UserService {
 
 	@Autowired
 	private UserDao userDao;
 
-	public void save(User user) {
-		this.userDao.save(user);
-	}
-
-	public User get(Integer id) {
-		return this.userDao.get(id);
-	}
-
-	public void deleteById(Integer id) {
-		this.userDao.deleteById(id);
-	}
-
-	public List<User> getListByHQL(String hql, Object[] values) {
-		return null;
+	@Override
+	public HibernateBaseDao<User, Integer> getEntityDao() {
+		return userDao;
 	}
 
 	@Override
-	public User getUserByName(String userName) {
+	public User getUserByName(String username) {
 		return null;
 	}
 }

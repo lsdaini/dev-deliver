@@ -18,20 +18,34 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class BaseModel implements Serializable {
 	private static final long serialVersionUID = 3500193360545333681L;
-	private Integer id;
-	private String enabled;
-	private Date createTime;
-	private Date updateTime;
-	private Date comfimTime;
-	private String createBy;
-	private String updateBy;
-	private String comfimBy;
-	private String definitionOne;
-	private String definitionTwo;
-	private String definitionThree;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;//主键ID
+	
+	@Column(length = 1)
+	private String enabled;//是否启用
+	
+	@Column(length = 64)
+	private String createBy;//创建人
+	private Date createTime;//创建时间
+	
+	@Column(length = 64)
+	private String updateBy;//修改人
+	private Date updateTime;//修改时间
+	
+	@Column(length = 64)
+	private String comfimBy;//审核人
+	private Date comfimTime;//审核时间
+	
+	@Column(length = 64)
+	private String definitionOne;//备用字段
+	
+	@Column(length = 64)
+	private String definitionTwo;//备用字段
+	
+	@Column(length = 64)
+	private String definitionThree;//备用字段
+
 	public Integer getId() {
 		return this.id;
 	}
@@ -40,7 +54,6 @@ public class BaseModel implements Serializable {
 		this.id = id;
 	}
 
-	@Column(length = 1)
 	public String getEnabled() {
 		return this.enabled;
 	}
@@ -73,7 +86,6 @@ public class BaseModel implements Serializable {
 		this.comfimTime = comfimTime;
 	}
 
-	@Column(length = 64)
 	public String getCreateBy() {
 		return this.createBy;
 	}
@@ -82,7 +94,6 @@ public class BaseModel implements Serializable {
 		this.createBy = createBy;
 	}
 
-	@Column(length = 64)
 	public String getUpdateBy() {
 		return this.updateBy;
 	}
@@ -91,7 +102,6 @@ public class BaseModel implements Serializable {
 		this.updateBy = updateBy;
 	}
 
-	@Column(length = 64)
 	public String getComfimBy() {
 		return this.comfimBy;
 	}
@@ -100,7 +110,6 @@ public class BaseModel implements Serializable {
 		this.comfimBy = comfimBy;
 	}
 
-	@Column(length = 64)
 	public String getDefinitionOne() {
 		return this.definitionOne;
 	}
@@ -109,7 +118,6 @@ public class BaseModel implements Serializable {
 		this.definitionOne = definitionOne;
 	}
 
-	@Column(length = 64)
 	public String getDefinitionTwo() {
 		return this.definitionTwo;
 	}
@@ -118,7 +126,6 @@ public class BaseModel implements Serializable {
 		this.definitionTwo = definitionTwo;
 	}
 
-	@Column(length = 64)
 	public String getDefinitionThree() {
 		return this.definitionThree;
 	}

@@ -14,10 +14,13 @@ import javax.persistence.Table;
 @Table(name = "Tb_Role")
 public class Role extends BaseModel {
 	private static final long serialVersionUID = 7090520035380600700L;
-	private String roleName;
-	private String remark;
-
+	
 	@Column(length = 64)
+	private String roleName;//角色名称
+	
+	@Column(length = 512)
+	private String remark;//备注
+
 	public String getRoleName() {
 		return this.roleName;
 	}
@@ -26,7 +29,6 @@ public class Role extends BaseModel {
 		this.roleName = roleName;
 	}
 
-	@Column(length = 512)
 	public String getRemark() {
 		return this.remark;
 	}
@@ -34,4 +36,5 @@ public class Role extends BaseModel {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
 }

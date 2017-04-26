@@ -7,36 +7,26 @@ package net.luis.system.service.impl;
 *@Description：
 */
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import net.luis.common.dao.HibernateBaseDao;
+import net.luis.common.service.BaseService;
 import net.luis.system.dao.RightsDao;
 import net.luis.system.model.Rights;
 import net.luis.system.service.RightsService;
 
 @Service
 @Transactional
-public class RightsServiceImpl implements RightsService {
+public class RightsServiceImpl extends BaseService<Rights, Integer> implements RightsService {
 
 	@Autowired
 	private RightsDao rightsDao;
 
-	public void save(Rights rights) {
-		this.rightsDao.save(rights);
+	@Override
+	public HibernateBaseDao<Rights, Integer> getEntityDao() {
+		return rightsDao;
 	}
 
-	public Rights get(Integer id) {
-		return this.rightsDao.get(id);
-	}
-
-	public void deleteById(Integer id) {
-		this.rightsDao.deleteById(id);
-	}
-
-	public List<Rights> getListByHQL(String hql, Object[] values) {
-		return null;
-	}
 }

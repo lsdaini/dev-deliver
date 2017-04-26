@@ -15,16 +15,30 @@ import javax.persistence.Table;
 @Table(name = "Tb_Log")
 public class Log extends BaseModel {
 	private static final long serialVersionUID = 8535595678660759063L;
-	private String title;
-	private String content;
-	private Integer type;
-	private String loginName;
-	private String loginIP;
-	private Date logintime;
-	private String loginArea;
-	private char diffAreaLogin;
-
+	
 	@Column(length = 64)
+	private String title;//日志主题
+	
+	@Column(length = 512)
+	private String content;//内容
+	
+	@Column(length = 16)
+	private Integer type;//类型
+	
+	@Column(length = 64)
+	private String loginName;//登录名
+	
+	@Column(length = 16)
+	private String loginIP;//登录ip
+	
+	private Date logintime;//登录时间
+	
+	@Column(length = 64)
+	private String loginArea;//登录地点
+	
+	@Column(length = 1)
+	private char diffAreaLogin;//是否异地登录
+
 	public String getTitle() {
 		return this.title;
 	}
@@ -33,7 +47,6 @@ public class Log extends BaseModel {
 		this.title = title;
 	}
 
-	@Column(length = 512)
 	public String getContent() {
 		return this.content;
 	}
@@ -42,7 +55,6 @@ public class Log extends BaseModel {
 		this.content = content;
 	}
 
-	@Column(length = 16)
 	public Integer getType() {
 		return this.type;
 	}
@@ -51,7 +63,6 @@ public class Log extends BaseModel {
 		this.type = type;
 	}
 
-	@Column(length = 64)
 	public String getLoginName() {
 		return this.loginName;
 	}
@@ -60,7 +71,6 @@ public class Log extends BaseModel {
 		this.loginName = loginName;
 	}
 
-	@Column(length = 16)
 	public String getLoginIP() {
 		return this.loginIP;
 	}
@@ -77,7 +87,6 @@ public class Log extends BaseModel {
 		this.logintime = logintime;
 	}
 
-	@Column(length = 64)
 	public String getLoginArea() {
 		return this.loginArea;
 	}
@@ -86,7 +95,6 @@ public class Log extends BaseModel {
 		this.loginArea = loginArea;
 	}
 
-	@Column(length = 1)
 	public char getDiffAreaLogin() {
 		return this.diffAreaLogin;
 	}

@@ -1,9 +1,11 @@
 package net.luis.system.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import net.luis.common.dao.HibernateBaseDao;
+import net.luis.common.service.BaseService;
 import net.luis.system.dao.RoleDao;
 import net.luis.system.model.Role;
 import net.luis.system.service.RoleService;
@@ -14,29 +16,16 @@ import net.luis.system.service.RoleService;
 *@Description：
 */
 
-public class RoleServiceImpl implements RoleService {
+@Service
+@Transactional
+public class RoleServiceImpl extends BaseService<Role, Integer> implements RoleService {
 
 	@Autowired
 	private RoleDao roleDao;
-	
-	@Override
-	public void save(Role role) {
-		this.roleDao.save(role);
-	}
 
 	@Override
-	public Role get(Integer id) {
-		return this.roleDao.get(id);
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-		this.roleDao.deleteById(id);
-	}
-
-	@Override
-	public List<Role> getListByHQL(String hql, Object[] params) {
-		return null;
+	public HibernateBaseDao<Role, Integer> getEntityDao() {
+		return roleDao;
 	}
 
 }

@@ -1,8 +1,8 @@
-package net.luis.platform.webservice.impl;
+package net.luis.platform.web.service.impl;
 
 import javax.jws.WebService;
 
-import net.luis.platform.webservice.CommonWebService;
+import net.luis.platform.web.service.CommonWebService;
 
 /**
  * @CreateTime：2017年3月29日 下午5:04:16

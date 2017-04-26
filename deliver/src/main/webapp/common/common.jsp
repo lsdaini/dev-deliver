@@ -19,6 +19,99 @@
 <script type="text/javascript" src="${basePath}/resources/javascript/layui-1.0.9/layui.js"></script>
 
 <script type="text/javascript">
+function queryTerms(url){
+	var paramObjs = '';
+	var allTags = document.getElementsByTagName("INPUT");
+	paramObjs += pubTags(allTags);
+	var allTags = document.getElementsByTagName("SELECT");
+	paramObjs += pubTags(allTags);
+	paramObjs += "pageSize:${page.pageSize}"+"|";
+	paramObjs += "pageNo:${page.pageNo}";
+	$("#paramObjs").val(paramObjs);
+	$("#queryForm").attr("action",url);
+	$("#queryForm").submit();	
+}
+
+function queryTermsByForm(url,formName){
+	var paramObjs = '';
+	var allTags = document.getElementsByTagName("INPUT");
+	paramObjs += pubTags(allTags);
+	var allTags = document.getElementsByTagName("SELECT");
+	paramObjs += pubTags(allTags);
+	paramObjs += "pageSize:${page.pageSize}"+"|";
+	paramObjs += "pageNo:${page.pageNo}";
+	$("#paramObjs").val(paramObjs);
+	$("#"+formName).attr("action",url);
+	$("#"+formName).submit();	
+}
+
+function pubTags(allTags) {
+	var paramObjs = '';
+	for(var i = 0; i < allTags.length; i++) {
+		if(allTags[i] && allTags[i].id != '') {
+			if(allTags[i].id != 'paramObjs') {
+				var id = allTags[i].id;
+				var value = $("#"+id).val();
+				paramObjs+=id+":"+value+"|";
+			}
+		}
+	}
+	return paramObjs;
+}
+function queryPage(){
+	var paramObjs = '${paramObjs}';
+	var pageNo = '';
+	if(paramObjs != '') {
+		var paramObj = paramObjs.split("|");
+		for(var i = 0; i < paramObj.length; i++) {
+			var name = paramObj[i].split(":")[0];
+			var value = paramObj[i].split(":")[1];
+			var obj = document.getElementById(name);
+			if(obj) {
+				obj.value = value;
+			}
+			if(name == 'pageNo') {
+				pageNo = value;
+			}
+		}
+		pageURL('','',pageNo);
+	}else {
+		pageURL('','','1');
+	}
+}
+function queryPage(level){
+	var paramObjs = '${paramObjs}';
+	var pageNo = '';
+	if(paramObjs != '') {
+		var paramObj = paramObjs.split("|");
+		for(var i = 0; i < paramObj.length; i++) {
+			var name = paramObj[i].split(":")[0];
+			var value = paramObj[i].split(":")[1];
+			var obj = document.getElementById(name);
+			if(obj) {
+				obj.value = value;
+			}
+			if(name == 'pageNo') {
+				pageNo = value;
+			}
+		}
+		if('levelOne' == level){
+			pageURL('','',pageNo);
+		} else
+			pageURL('','','1');
+	}else {
+		pageURL('','','1');
+	}
+}
+//使用“paramObjs”参数中文乱码问题的处理
+function handleAction(url){
+	var $form = $("<form>");
+	$form.attr({"method":"post", "action":url});
+	$form.append("<input type='hidden' name='paramObjs' value='${paramObjs}' />");
+	$("body").append($form);
+	$form.submit();
+}
+
 function showMsg(str,callback){
 	if(!!callback){
 		layer.confirm(str, {

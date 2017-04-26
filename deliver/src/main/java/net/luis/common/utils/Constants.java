@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 
 public abstract interface Constants {
 	
-	public static final String MESSAGES_KEY = "messages_alert";
+	public static final String MESSAGES_KEY = "messages_show";
 	public static final String MAX_DATE = "9999-12-31";
 	public static final String SESSION_CURRENT_USER = "sessionCurrentUser";
 	public static final String SESSION_MODULES = "sessionModules";

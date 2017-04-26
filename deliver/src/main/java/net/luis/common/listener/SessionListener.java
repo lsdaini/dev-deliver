@@ -15,7 +15,7 @@ import net.luis.system.model.User;
 /**
  * @CreateTime：2017年3月28日 下午4:53:30
  * @Author sai.liu
- * @ProjectPackage：net.luis.base.listener.SessionListener.java 
+ * @ProjectPackage：net.luis.common.listener.SessionListener.java 
  * @Description：用户登录session的监听
  */
 

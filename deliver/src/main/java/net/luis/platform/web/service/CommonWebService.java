@@ -1,4 +1,4 @@
-package net.luis.platform.webservice;
+package net.luis.platform.web.service;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;

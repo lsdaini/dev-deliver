@@ -8,9 +8,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.xml.ws.Endpoint;
-import javax.xml.ws.WebServiceContext;
 
-import net.luis.platform.webservice.impl.CommonWebServiceImpl;
+import net.luis.platform.web.service.impl.CommonWebServiceImpl;
 
 
 /**

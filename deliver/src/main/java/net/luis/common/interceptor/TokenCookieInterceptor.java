@@ -15,7 +15,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
 import net.luis.common.utils.RequestUtil;
-import net.luis.common.utils.StringUtil;
+import net.luis.common.utils.StringUtils;
 
 
 public class TokenCookieInterceptor extends AbstractInterceptor {
@@ -61,7 +61,7 @@ public class TokenCookieInterceptor extends AbstractInterceptor {
 				return null;
 			}
 		}
-		String newToken = StringUtil.getToken();
+		String newToken = StringUtils.getToken();
 		RequestUtil.setCookie(response, TokenCookieInterceptor.TOKEN_NAME, newToken, request.getContextPath());
 		request.setAttribute(TOKEN_NAME_REQUEST, newToken);
 	

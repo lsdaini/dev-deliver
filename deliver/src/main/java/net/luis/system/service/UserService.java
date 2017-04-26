@@ -1,7 +1,5 @@
 package net.luis.system.service;
 
-import java.util.List;
-
 import net.luis.system.model.User;
 
 /**
@@ -10,14 +8,8 @@ import net.luis.system.model.User;
  * @ProjectPackage：net.luis.system.service.UserService.java @Description：
  */
 
-public interface UserService {
-	public  void save(User user);
+public interface UserService{
 
-	public  User get(Integer id);
-
-	public  void deleteById(Integer id);
-
-	public  List<User> getListByHQL(String hql, Object[] params);
+	public User getUserByName(String username);
 	
-	public User getUserByName(String userName);
 }

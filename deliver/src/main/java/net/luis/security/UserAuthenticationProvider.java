@@ -9,7 +9,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import net.luis.system.dao.UserDao;
 import net.luis.system.model.User;
 import net.luis.system.service.UserService;
 
@@ -40,7 +39,7 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 //			throw new UsernameNotFoundException("操作员失效！");
 //		}
 		
-		if (!user.getPassWord().equals(password)) {
+		if (!user.getPassword().equals(password)) {
 			throw new BadCredentialsException("密码不对！");
 		}
 		

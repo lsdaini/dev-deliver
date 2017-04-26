@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebListener;
 /**
  * @CreateTime：2017年3月28日 下午4:52:49
  * @Author sai.liu
- * @ProjectPackage：net.luis.base.listener.ContextFinalizer.java 
+ * @ProjectPackage：net.luis.common.listener.ContextFinalizer.java 
  * @Description：用于处理数据库连接/关闭异常监听
  */
 
