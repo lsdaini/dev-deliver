@@ -1,6 +1,7 @@
 package net.luis.common.action;
 
 import java.io.File;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
@@ -18,25 +19,14 @@ import com.opensymphony.xwork2.ActionSupport;
 
 @Results({ 
 	@Result(name = "upload", location = "/common/uploadFile.jsp"),
-	@Result(name = "ajax", location = "/common/ajaxloadFile.jsp"),
 	@Result(name = "login", location = "index.action", type = "redirect") })
 public class FileUploadAction extends ActionSupport {
 	
 	private static final long serialVersionUID = 2669236787748756519L;
-	private File upload;
-	private String uploadFileName;
-	private String uploadContentType;
+	private List<File> upload;//上传的文件,struts2会把文件封装为File对象
+	private List<String> uploadFileName;//文件名,struts2会把文件名称设置到该变量
+	private List<String> uploadContentType;//文件类型,struts2会把文件类型设置到该变量
 	private String result;
-
-	@Action("fileUpload")
-	public String fileUpload() {
-		return "upload";
-	}
-
-	@Action("ajaxUpload")
-	public String ajaxUpload() {
-		return "ajax";
-	}
 
 	@Action("upload")
 	public String execute() throws Exception {
@@ -45,32 +35,35 @@ public class FileUploadAction extends ActionSupport {
 		if (!file.exists()) {
 			file.mkdir();
 		}
-		FileUtils.copyFile(this.upload, new File(file, this.uploadFileName));
+		for (int i = 0; i < upload.size(); i++) {
+			FileUtils.copyFile(this.upload.get(i), new File(file, this.uploadFileName.get(i)));
+		}
 		this.result = "文件上传成功";
 		return result;
 	}
 
-	public File getUpload() {
-		return this.upload;
+
+	public List<File> getUpload() {
+		return upload;
 	}
 
-	public void setUpload(File upload) {
+	public void setUpload(List<File> upload) {
 		this.upload = upload;
 	}
 
-	public String getUploadFileName() {
-		return this.uploadFileName;
+	public List<String> getUploadFileName() {
+		return uploadFileName;
 	}
 
-	public void setUploadFileName(String uploadFileName) {
+	public void setUploadFileName(List<String> uploadFileName) {
 		this.uploadFileName = uploadFileName;
 	}
 
-	public String getUploadContentType() {
-		return this.uploadContentType;
+	public List<String> getUploadContentType() {
+		return uploadContentType;
 	}
 
-	public void setUploadContentType(String uploadContentType) {
+	public void setUploadContentType(List<String> uploadContentType) {
 		this.uploadContentType = uploadContentType;
 	}
 
