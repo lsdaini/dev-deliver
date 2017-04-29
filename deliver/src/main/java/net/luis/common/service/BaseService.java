@@ -60,13 +60,13 @@ public abstract class BaseService<T,PK extends Serializable > {
 	}
 	
 	
-	public List<T> search(final List<PropertyFilter> filters){
+	public List<T> findPage(final List<PropertyFilter> filters){
 		return this.getEntityDao().find(filters);
 	}
 	
 	
 	@Transactional(readOnly = true)
-	public Page<T> search(final Page<T> page, final List<PropertyFilter> filters) {
+	public Page<T> findPage(final Page<T> page, final List<PropertyFilter> filters) {
 		return this.getEntityDao().findPage(page, filters);
 	}
 	
